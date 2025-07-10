@@ -29,7 +29,7 @@ class PostModel extends Model
 
     // Validation
     protected $validationRules = [
-        'title' => 'required|min_length[3]|max_length[255]',
+        'title' => 'required|min_length[3]|max_length[255]|is_unique[posts.title]',
         'slug'  => 'permit_empty|max_length[255]',
         'body'  => 'required',
     ];
