@@ -30,7 +30,7 @@ class Database extends Config
         'username'   => '', // Will be set from .env
         'password'   => '', // Will be set from .env
         'database'   => '', // Will be set from .env
-        'DBDriver'   => 'MySQLi',
+        'DBDriver'   => 'Postgre',
         'DBPrefix'   => '',
         'pConnect'   => false,
         'DBDebug'    => false, // Will be set from .env or ENVIRONMENT
@@ -41,7 +41,7 @@ class Database extends Config
         'compress'   => false,
         'strictOn'   => false,
         'failover'   => [],
-        'port'       => 3306,
+        'port'       => 6543,
         'dateFormat' => [
             'date'     => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
