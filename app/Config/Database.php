@@ -26,14 +26,14 @@ class Database extends Config
      */
     public array $default = [
         'DSN'        => '',
-        'hostname'   => 'localhost',
-        'username'   => 'emtec2004',
-        'password'   => 'Scc0006!Won',
-        'database'   => 'emtec2004',
+        'hostname'   => '', // Will be set from .env
+        'username'   => '', // Will be set from .env
+        'password'   => '', // Will be set from .env
+        'database'   => '', // Will be set from .env
         'DBDriver'   => 'MySQLi',
         'DBPrefix'   => '',
         'pConnect'   => false,
-        'DBDebug'    => true,
+        'DBDebug'    => false, // Will be set from .env or ENVIRONMENT
         'charset'    => 'utf8',
         'DBCollat'   => 'utf8_general_ci',
         'swapPre'    => '',
@@ -48,90 +48,6 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
-
-    //    /**
-    //     * Sample database connection for Postgre.
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => '',
-    //        'hostname'   => 'localhost',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'database'   => 'ci4',
-    //        'schema'     => 'public',
-    //        'DBDriver'   => 'Postgre',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'utf8',
-    //        'swapPre'    => '',
-    //        'failover'   => [],
-    //        'port'       => 5432,
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    //    /**
-    //     * Sample database connection for SQLSRV.
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => '',
-    //        'hostname'   => 'localhost',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'database'   => 'ci4',
-    //        'schema'     => 'dbo',
-    //        'DBDriver'   => 'SQLSRV',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'utf8',
-    //        'swapPre'    => '',
-    //        'encrypt'    => false,
-    //        'failover'   => [],
-    //        'port'       => 1433,
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    //    /**
-    //     * Sample database connection for OCI8.
-    //     *
-    //     * You may need the following environment variables:
-    //     *   NLS_LANG                = 'AMERICAN_AMERICA.UTF8'
-    //     *   NLS_DATE_FORMAT         = 'YYYY-MM-DD HH24:MI:SS'
-    //     *   NLS_TIMESTAMP_FORMAT    = 'YYYY-MM-DD HH24:MI:SS'
-    //     *   NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => 'localhost:1521/XEPDB1',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'DBDriver'   => 'OCI8',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'AL32UTF8',
-    //        'swapPre'    => '',
-    //        'failover'   => [],
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
 
     /**
      * This database connection is used when running PHPUnit database tests.
@@ -168,6 +84,13 @@ class Database extends Config
     public function __construct()
     {
         parent::__construct();
+
+        // Load environment variables for database connection
+        $this->default['hostname'] = getenv('database.default.hostname');
+        $this->default['username'] = getenv('database.default.username');
+        $this->default['password'] = getenv('database.default.password');
+        $this->default['database'] = getenv('database.default.database');
+        $this->default['DBDebug']  = ENVIRONMENT !== 'production';
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
