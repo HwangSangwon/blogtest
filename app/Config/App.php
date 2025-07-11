@@ -137,7 +137,7 @@ class App extends BaseConfig
      */
     public string $appTimezone = 'UTC';
 
-    public string $postListLayout = 'grid'; // 'single' or 'grid'
+    public string $postListLayout = 'single'; // 'single' or 'grid'
 
     /**
      * --------------------------------------------------------------------------
