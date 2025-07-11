@@ -1,6 +1,6 @@
 {
     "name": "codeigniter4/appstarter",
-    "description": "CodeIgniter4 starter app",
+    "description": "CodeIgniter4 starter app for Google App Engine",
     "license": "MIT",
     "type": "project",
     "homepage": "https://codeigniter.com",
@@ -10,7 +10,7 @@
         "slack": "https://codeigniterchat.slack.com"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "cocur/slugify": "^4.6",
         "codeigniter4/framework": "^4.6.1"
     },
@@ -36,9 +36,18 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2"
+        }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "post-install-cmd": [
+            "@composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "@composer dump-autoload"
+        ]
     }
 }
