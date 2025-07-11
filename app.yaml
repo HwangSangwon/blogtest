@@ -1,0 +1,63 @@
+runtime: php82
+
+# CodeIgniter 4 핸들러 설정
+handlers:
+  # 정적 파일 처리 - assets 폴더
+  - url: /assets/(.+)
+    static_files: public/assets/\1
+    upload: public/assets/(.+)
+    expiration: "30d"
+    
+  # 기본 파일들
+  - url: /(favicon\.ico)
+    static_files: public/\1
+    upload: public/(favicon\.ico)
+    expiration: "30d"
+    
+  - url: /(robots\.txt)
+    static_files: public/\1
+    upload: public/(robots\.txt)
+    expiration: "1d"
+    
+  # CSS, JS, 이미지, 폰트 파일들
+  - url: /(.*\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|map))$
+    static_files: public/\1
+    upload: public/(.*\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|map))$
+    expiration: "30d"
+    
+  # 모든 동적 요청을 CodeIgniter로 라우팅
+  - url: /.*
+    script: auto
+    secure: always
+
+# 환경 변수 설정
+env_variables:
+  # CodeIgniter 환경 설정
+  CI_ENVIRONMENT: production
+  app_baseURL: 'https://cursor-457806.du.r.appspot.com/'
+  app_indexPage: ''
+  app_forceGlobalSecureRequests: 'true'
+  
+  # 세션 설정 (App Engine 최적화)
+  session_driver: 'CodeIgniter\Session\Handlers\FileHandler'
+  session_savePath: '/tmp'
+  
+  # 로깅 레벨 (프로덕션용)
+  logger_threshold: '4'
+
+# 자동 스케일링 설정
+automatic_scaling:
+  min_instances: 0
+  max_instances: 3
+  target_cpu_utilization: 0.6
+  
+# 인스턴스 클래스 (무료 티어)
+instance_class: F1
+
+# 네트워크 설정
+network:
+  session_affinity: false
+
+# 성능 최적화
+inbound_services:
+  - warmup
