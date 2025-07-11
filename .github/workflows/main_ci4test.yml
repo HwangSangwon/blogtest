@@ -71,5 +71,5 @@ jobs:
         with:
           app-name: 'ci4test'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXXX }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CI4TEST }}
           package: .
