@@ -23,7 +23,7 @@ class Paths
      * This must contain the name of your "system" folder. Include
      * the path if the folder is not in the same directory as this file.
      */
-    public string $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
+    public string $systemDirectory;
 
     /**
      * ---------------------------------------------------------------
@@ -37,7 +37,7 @@ class Paths
      *
      * @see http://codeigniter.com/user_guide/general/managing_apps.html
      */
-    public string $appDirectory = __DIR__ . '/..';
+    public string $appDirectory;
 
     /**
      * ---------------------------------------------------------------
@@ -49,8 +49,11 @@ class Paths
      * need write permission to a single place that can be tucked away
      * for maximum security, keeping it out of the app and/or
      * system directories.
+     *
+     * On Google App Engine, the only writable directory is /tmp, so we
+     * detect that environment and change the path accordingly.
      */
-    public string $writableDirectory = __DIR__ . '/../../writable';
+    public string $writableDirectory;
 
     /**
      * ---------------------------------------------------------------
@@ -59,7 +62,7 @@ class Paths
      *
      * This variable must contain the name of your "tests" directory.
      */
-    public string $testsDirectory = __DIR__ . '/../../tests';
+    public string $testsDirectory;
 
     /**
      * ---------------------------------------------------------------
@@ -71,5 +74,14 @@ class Paths
      * default this is in `app/Views`. This value
      * is used when no value is provided to `Services::renderer()`.
      */
-    public string $viewDirectory = __DIR__ . '/../Views';
+    public string $viewDirectory;
+
+    public function __construct()
+    {
+        $this->systemDirectory   = __DIR__ . '/../../vendor/codeigniter4/framework/system';
+        $this->appDirectory      = __DIR__ . '/..';
+        $this->writableDirectory = __DIR__ . '/../../writable';
+        $this->testsDirectory    = __DIR__ . '/../../tests';
+        $this->viewDirectory     = __DIR__ . '/../Views';
+    }
 }

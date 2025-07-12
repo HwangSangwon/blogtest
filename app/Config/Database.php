@@ -85,12 +85,9 @@ class Database extends Config
     {
         parent::__construct();
 
-        // Load environment variables for database connection
-        $this->default['hostname'] = getenv('database.default.hostname');
-        $this->default['username'] = getenv('database.default.username');
-        $this->default['password'] = getenv('database.default.password');
-        $this->default['database'] = getenv('database.default.database');
-        $this->default['DBDebug']  = ENVIRONMENT !== 'production';
+        // For local development, CodeIgniter's default .env handling populates the values.
+        // We only need to ensure the debug flag is set correctly based on the environment.
+        $this->default['DBDebug'] = (ENVIRONMENT !== 'production');
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
